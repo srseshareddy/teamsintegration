@@ -1,0 +1,56 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.16",
+    "version": "1.0.1",
+    "id": "85303c95-6932-4a33-b6f8-c53e9a8239e8",
+    "packageName": "com.salesforce.salesforcebotteams",
+    "developer": {
+        "name": "Alberto Diaz (Salesforce)",
+        "websiteUrl": "https://www.salesforce.com",
+        "privacyUrl": "https://www.yourcompany.com/privacy",
+        "termsOfUseUrl": "https://www.yourcompany.com/terms"
+    },
+    "name": {
+        "short": "Agentforce",
+        "full": "Agentforce Teams Integration Bot"
+    },
+    "description": {
+        "short": "A bot that integrates with Agentforce ",
+        "full": "This bot allows users to interact with Agentforce AI directly from Microsoft Teams."
+    },
+    "icons": {
+        "outline": "outline.png",
+        "color": "color.png"
+    },
+    "accentColor": "#FFFFFF",
+    "bots": [
+        {
+            "botId": "626bfaea-3a13-4a61-ae0c-b5c70b81c927",
+            "scopes": [
+                "personal",
+                "team",
+                "groupchat"
+            ],
+            "supportsFiles": false,
+            "isNotificationOnly": false,
+            "commandLists": [
+                {
+                    "scopes": [
+                        "personal",
+                        "team",
+                        "groupchat"
+                    ],
+                    "commands": [
+                        {
+                            "title": "Help",
+                            "description": "Shows help information"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "permissions": [
+        "messageTeamMembers"
+    ]
+}
