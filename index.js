@@ -20,12 +20,15 @@ adapter.onTurnError = async (context, error) => {
 };
 
 async function getSalesforceToken() {
+    console.log("🔑 Requesting Salesforce token...") ;
     try {
         const response = await axios.post(process.env.SF_TOKEN_URL, new URLSearchParams({
             grant_type: 'client_credentials',
             client_id: process.env.SF_CLIENT_ID,
             client_secret: process.env.SF_CLIENT_SECRET
         }));
+        console.log("✅ Salesforce token retrieved successfully");
+        // Check if the token is valid
         return response.data.access_token;
     } catch (error) {
         console.error("❌ Error getting Salesforce token:", error.response?.data || error.message);
@@ -42,7 +45,7 @@ async function createEinsteinSession(accessToken, conversationId) {
             bypassUser: true
         }, { headers: { Authorization: `Bearer ${accessToken}` } });
         
-        console.log(`✅ Created new session for conversation ${conversationId}`);
+        console.log(`✅ Created new session for conversation ${response.data.sessionId}`);
         return response.data.sessionId;
     } catch (error) {
         console.error("❌ Error creating Einstein AI session:", error.response?.data || error.message);
@@ -52,13 +55,21 @@ async function createEinsteinSession(accessToken, conversationId) {
 
 async function sendEinsteinMessage(accessToken, sessionId, userMessage) {
     try {
-        const response = await axios.post(`${process.env.SF_MESSAGE_URL}/${sessionId}/messages`, {
+     const messageUrl = `${process.env.SF_MESSAGE_URL}/${sessionId}/messages`;
+       console.log(`📤 Sending message to Salesforce at: ${messageUrl}`);
+        console.log(`📩 Message content: ${userMessage}`)   ;
+
+        const response = await axios.post(messageUrl, {
             message: { sequenceId: Date.now(), type: "Text", text: userMessage },
             variables: []
         }, { headers: { Authorization: `Bearer ${accessToken}` } });
+        console.log("✅ Message sent successfully");
+        console.log("Response from Einstein AI:", response.data);
         return response.data.messages[0].message;
     } catch (error) {
-        // Check if error is due to invalid session
+        console.error("❌ Error sending message to Einstein AI:", error.response?.data || error.message);
+        // Check if err
+        // or is due to invalid session
         if (error.response?.status === 404 || 
             (error.response?.data && error.response?.data.includes("session not found"))) {
             throw new Error("SESSION_EXPIRED");
@@ -92,12 +103,14 @@ async function getOrCreateSession(conversationId, accessToken) {
 }
 
 const botLogic = async (context) => {
-    if (context.activity.type === 'message') {
+    console.log('Bot logic triggered for conversation'+context.activity.text);
+    if (context.activity.type === 'message'||true) {
         const userMessage = context.activity.text;
-        const conversationId = context.activity.conversation.id;
+        const conversationId = "test1";//context.activity.conversation.id;
         
         console.log(`📩 Message received from conversation ${conversationId}:`, context.activity.text);
-        await context.sendActivity("⏳ "+(process.env.STATUS_MESSAGE || "Processing your request..."));
+        console.log('User message:');
+         await context.sendActivity("⏳ "+(process.env.STATUS_MESSAGE || "Processing your request..."));
         
         try {
             const accessToken = await getSalesforceToken();
@@ -107,7 +120,10 @@ const botLogic = async (context) => {
             try {
                 // Try to get existing session or create a new one
                 sessionId = await getOrCreateSession(conversationId, accessToken);
+                console.log(`💬 Sending message to Einstein AI with session ID: ${sessionId}`) ;
                 const responseMessage = await sendEinsteinMessage(accessToken, sessionId, userMessage);
+                console.log("Response from Einstein AI:", responseMessage);
+                // Send the response back to the user
                 await context.sendActivity(responseMessage);
             } catch (error) {
                 if (error.message === "SESSION_EXPIRED" && !retryWithNewSession) {
