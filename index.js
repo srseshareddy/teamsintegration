@@ -106,11 +106,7 @@ const botLogic = async (context) => {
     console.log('Bot logic triggered for conversation'+context.activity.text);
     if (context.activity.type === 'message'||true) {
         const userMessage = context.activity.text;
-               const conversationId = context.activity.conversation.id;
-
-        
-        console.log(`📩 Message received from conversation ${conversationId}:`, context.activity.text);
-        console.log('User message:');
+        const conversationId = context.activity.conversation.id;
          await context.sendActivity("⏳ "+(process.env.STATUS_MESSAGE || "Processing your request..."));
         
         try {
