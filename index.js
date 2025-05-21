@@ -106,7 +106,7 @@ async function getOrCreateSession(conversationId, accessToken) {
 }
 
 const botLogic = async (context) => {
-   // await context.sendActivity("⏳ "+("Processing your request..."));
+    await context.sendActivity("⏳ "+("Processing your request..."));
     if (context.activity.type === 'message') {
         const userMessage = context.activity.text;
         const conversationId = context.activity.conversation.id;
@@ -123,7 +123,7 @@ const botLogic = async (context) => {
                 const responseMessage = await sendEinsteinMessage(accessToken, sessionId, userMessage);
                 console.log("Response from Einstein AI:", responseMessage);
                 // Send the response back to the user
-             //   await context.sendActivity(responseMessage);
+                await context.sendActivity(responseMessage);
             } catch (error) {
                 if (error.message === "SESSION_EXPIRED" && !retryWithNewSession) {
                     // Session expired, clear cache and create a new session
