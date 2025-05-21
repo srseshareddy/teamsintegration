@@ -183,6 +183,7 @@ server.pre((req, res, next) => {
 
 server.get('/api/messages', (req, res, next) => {
     res.send(200, "Bot endpoint is reachable ✅");
+    context.sendActivity("Got a request");
     return next();
 });
 
