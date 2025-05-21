@@ -170,7 +170,7 @@ server.use(restify.plugins.bodyParser());
 // 👇 Add CORS middleware here
 server.pre((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization,x-ms-client-session-id");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization,x-ms-client-session-id,x-ms-client-request-id");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 
     if (req.method === 'OPTIONS') {
