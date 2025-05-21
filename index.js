@@ -181,6 +181,11 @@ server.pre((req, res, next) => {
     return next();
 });
 
+server.get('/api/messages', (req, res, next) => {
+    res.send(200, "Bot endpoint is reachable ✅");
+    return next();
+});
+
 
 server.post('/api/messages', async (req, res) => {
     await adapter.process(req, res, botLogic);
