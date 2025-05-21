@@ -10,13 +10,12 @@ const sessionCache = new Map(); // Map to store sessions by conversationId
 const SESSION_TIMEOUT = (process.env.MIN_SESSION || 30) * 60 * 1000; // 30 minutes timeout (adjust as needed)
 
 //commented for testing
-/*const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
+const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
     MicrosoftAppId: process.env.BOT_ID,
     MicrosoftAppPassword: process.env.BOT_PASSWORD
 });
 const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory);
-const adapter = new CloudAdapter(botAuth);  */
-const adapter = new CloudAdapter();
+const adapter = new CloudAdapter(botAuth);
 
 adapter.onTurnError = async (context, error) => {
     console.error(`[ERROR] ${error}`);
