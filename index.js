@@ -107,11 +107,10 @@ async function getOrCreateSession(conversationId, accessToken) {
 }
 
 const botLogic = async (context) => {
-    console.log('Bot logic triggered for conversation'+context.activity.text);
-    if (context.activity.type === 'message'||true) {
+    await context.sendActivity("⏳ "+("Processing your request..."));
+    if (context.activity.type === 'message') {
         const userMessage = context.activity.text;
         const conversationId = context.activity.conversation.id;
-         await context.sendActivity("⏳ "+(process.env.STATUS_MESSAGE || "Processing your request..."));
         
         try {
             const accessToken = await getSalesforceToken();
