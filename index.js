@@ -1,5 +1,7 @@
 const restify = require('restify');
 const axios = require('axios');
+
+
 require('dotenv').config();
 const { CloudAdapter, ConfigurationServiceClientCredentialFactory, ConfigurationBotFrameworkAuthentication } = require('botbuilder');
 
@@ -166,7 +168,7 @@ server.use(restify.plugins.bodyParser());
 
 
 // 👇 Add CORS middleware here
-server.use((req, res, next) => {
+server.pre((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -178,6 +180,7 @@ server.use((req, res, next) => {
 
     return next();
 });
+
 
 server.post('/api/messages', async (req, res) => {
     await adapter.process(req, res, botLogic);
