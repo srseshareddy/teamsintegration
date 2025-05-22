@@ -10,22 +10,30 @@ const {
     ConfigurationBotFrameworkAuthentication
 } = require('botbuilder');
 
-const { AllowedCallersClaimsValidator } = require('botframework-skills');
 const { AuthenticationConfiguration } = require('botframework-connector');
 
 // Session management variables
-const sessionCache = new Map(); // Map to store sessions by conversationId
-const SESSION_TIMEOUT = (process.env.MIN_SESSION || 30) * 60 * 1000; // 30 minutes timeout (adjust as needed)
+const sessionCache = new Map();
+const SESSION_TIMEOUT = (process.env.MIN_SESSION || 30) * 60 * 1000;
 
-// Create allowed callers list (App IDs of allowed caller bots)
+// Define allowed callers manually
 const allowedCallers = [
     "e5419572-f43c-4df2-ada0-f5bf4681193e"
 ];
 
-// Set up claims validator
-const claimsValidator = new AllowedCallersClaimsValidator(allowedCallers);
+// Create a custom claims validator
+const claimsValidator = async (claims) => {
+    const appIdClaim = claims.find(c => c.type === 'azp' || c.type === 'appid');
+    const appId = appIdClaim?.value;
+
+    if (!appId || !allowedCallers.includes(appId)) {
+        throw new Error(`Unauthorized caller: ${appId}`);
+    }
+};
+
+// Set up authentication configuration
 const authConfig = new AuthenticationConfiguration({
-    claimsValidator: claimsValidator.validateClaims.bind(claimsValidator)
+    claimsValidator
 });
 
 // Bot credentials
