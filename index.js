@@ -38,7 +38,7 @@ const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
 });
 
 // Bot authentication
-const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory, authConfig);
+const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory);
 
 // Adapter with skill authentication
 const adapter = new CloudAdapter(botAuth);
