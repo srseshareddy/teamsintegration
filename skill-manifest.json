@@ -1,18 +1,25 @@
 {
-  "$schema": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/schema/skill-manifest.schema.json",
-  "manifestVersion": "1.0",
-  "name": "AgentForceBot",
-  "msaAppId": "12f8719f-d5d8-49a2-bea3-937927712023",
-  "endpoint": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages",
+  "$schema": "https://schemas.botframework.com/schemas/skills/v2.2/skill-manifest.json",
+  "$id": "agentforcebot-12f8719f-d5d8-49a2-bea3-937927712023",
+  "name": "agentforcebot",
+  "version": "1.0",
+  "publisherName": "YourCompany",
+  "endpoints": [
+    {
+      "name": "default",
+      "protocol": "BotFrameworkV3",
+      "description": "Production endpoint for AgentForceBot",
+      "endpointUrl": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages",
+      "msAppId": "12f8719f-d5d8-49a2-bea3-937927712023"
+    }
+  ],
   "activities": {
-    "message": {
-      "description": "Handles messages",
+    "messageReceived": {
       "type": "message"
     },
-    "event": {
-      "description": "Handles events",
-      "type": "event"
+    "customEvent": {
+      "type": "event",
+      "name": "CustomEvent"
     }
-  },
-  "version": "1.0.0"
+  }
 }
