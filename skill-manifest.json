@@ -6,14 +6,9 @@
   "endpoint": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages",
   "activities": [
     {
-      "id": "messageReceived",
-      "description": "Triggered when a message is received",
+      "id": "handleMessage",
+      "description": "Handles incoming messages",
       "type": "message"
-    },
-    {
-      "id": "eventReceived",
-      "description": "Triggered when an event is received",
-      "type": "event"
     }
   ],
   "version": "1.0.0"
