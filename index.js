@@ -21,34 +21,31 @@ const allowedCallers = [
     "e5419572-f43c-4df2-ada0-f5bf4681193e"
 ];
 
-// Create a custom claims validator
-/*const claimsValidator = async (_claims) => {
-    // Always allow
+
+// ✅ No-op claims validator: allow any caller
+const claimsValidator = async (_claims) => {
+    // Intentionally allow all callers
 };
 
-// Set up authentication configuration
+// ✅ Authentication config with the no-op validator
 const authConfig = new AuthenticationConfiguration({
     claimsValidator
 });
 
-// Bot credentials
+// ✅ Bot credentials (from .env)
 const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
     MicrosoftAppId: process.env.BOT_ID,
     MicrosoftAppPassword: process.env.BOT_PASSWORD
 });
 
-// Bot authentication
-const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory);
-
-// Adapter with skill authentication
+// ✅ Auth object passed into CloudAdapter
+const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory, authConfig);
 const adapter = new CloudAdapter(botAuth);
-
 
 adapter.onTurnError = async (context, error) => {
     console.error(`[ERROR] ${error}`);
     await context.sendActivity("Oops! Something went wrong.");
-}; */
-
+}; 
 async function getSalesforceToken() {
     console.log("🔑 Requesting Salesforce token...") ;
     try {
