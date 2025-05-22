@@ -4,19 +4,42 @@ const fs = require('fs');
 const path = require('path');
 
 require('dotenv').config();
-const { CloudAdapter, ConfigurationServiceClientCredentialFactory, ConfigurationBotFrameworkAuthentication } = require('botbuilder');
+const {
+    CloudAdapter,
+    ConfigurationServiceClientCredentialFactory,
+    ConfigurationBotFrameworkAuthentication
+} = require('botbuilder');
+
+const { AllowedCallersClaimsValidator } = require('botframework-skills');
+const { AuthenticationConfiguration } = require('botframework-connector');
 
 // Session management variables
 const sessionCache = new Map(); // Map to store sessions by conversationId
 const SESSION_TIMEOUT = (process.env.MIN_SESSION || 30) * 60 * 1000; // 30 minutes timeout (adjust as needed)
 
-//commented for testing
+// Create allowed callers list (App IDs of allowed caller bots)
+const allowedCallers = [
+    "e5419572-f43c-4df2-ada0-f5bf4681193e"
+];
+
+// Set up claims validator
+const claimsValidator = new AllowedCallersClaimsValidator(allowedCallers);
+const authConfig = new AuthenticationConfiguration({
+    claimsValidator: claimsValidator.validateClaims.bind(claimsValidator)
+});
+
+// Bot credentials
 const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
     MicrosoftAppId: process.env.BOT_ID,
     MicrosoftAppPassword: process.env.BOT_PASSWORD
 });
-const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory);
+
+// Bot authentication
+const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory, authConfig);
+
+// Adapter with skill authentication
 const adapter = new CloudAdapter(botAuth);
+
 
 adapter.onTurnError = async (context, error) => {
     console.error(`[ERROR] ${error}`);
