@@ -1,43 +1,20 @@
 {
   "$schema": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/schema/skill-manifest.schema.json",
   "manifestVersion": "1.0",
-  "id": "12f8719f-d5d8-49a2-bea3-937927712023",
-  "name": {
-    "short": "AgentForceBot",
-    "full": "Agent Force Bot Skill"
-  },
-  "publisher": "Your Company Name",
-  "description": {
-    "short": "Agent Force Bot for customer interaction",
-    "full": "This skill handles customer interactions via Agent Force Bot."
-  },
-  "endpoints": [
+  "name": "AgentForceBot",
+  "msaAppId": "12f8719f-d5d8-49a2-bea3-937927712023",
+  "endpoint": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages",
+  "activities": [
     {
-      "protocol": "https",
-      "url": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages"
+      "id": "messageReceived",
+      "description": "Triggered when a message is received",
+      "type": "message"
+    },
+    {
+      "id": "eventReceived",
+      "description": "Triggered when an event is received",
+      "type": "event"
     }
   ],
-  "capabilities": [
-    {
-      "type": "actions",
-      "actions": [
-        {
-          "id": "agentForceAction",
-          "type": "openUrl",
-          "description": "Handles user queries via Agent Force Bot"
-        }
-      ]
-    }
-  ],
-  "supportedLocales": [
-    "en-US"
-  ],
-  "requiredPermissions": [
-    "user.read"
-  ],
-  "author": {
-    "name": "Your Name or Company",
-    "contact": "contact@yourdomain.com"
-  },
   "version": "1.0.0"
 }
