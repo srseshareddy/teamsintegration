@@ -1,24 +1,43 @@
 {
-  "$schema": "https://schema.botframework.com/schemas/skills/v2.1/skill-manifest.json",
-  "manifestId": "agent-bot-skill",
-  "name": "Agentforceskill",
-  "description": "AgentforceBot as a skill for Copilot Studio",
-  "publisherName": "AgentforceBot",
-  "version": "1.0",
-  "endpoint": {
-    "protocol": "BotFrameworkV3",
-    "url": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages",
-    "msAppId": "12f8719f-d5d8-49a2-bea3-937927712023"
+  "$schema": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/schema/skill-manifest.schema.json",
+  "manifestVersion": "1.0",
+  "id": "12f8719f-d5d8-49a2-bea3-937927712023",
+  "name": {
+    "short": "AgentForceBot",
+    "full": "Agent Force Bot Skill"
   },
-  "activities": {
-    "WelcomeIntent": {
-      "description": "Greets the user",
-      "type": "message"
-    },
-    "HelpIntent": {
-      "description": "Provides help and guidance",
-      "type": "message"
+  "publisher": "Your Company Name",
+  "description": {
+    "short": "Agent Force Bot for customer interaction",
+    "full": "This skill handles customer interactions via Agent Force Bot."
+  },
+  "endpoints": [
+    {
+      "protocol": "https",
+      "url": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages"
     }
+  ],
+  "capabilities": [
+    {
+      "type": "actions",
+      "actions": [
+        {
+          "id": "agentForceAction",
+          "type": "openUrl",
+          "description": "Handles user queries via Agent Force Bot"
+        }
+      ]
+    }
+  ],
+  "supportedLocales": [
+    "en-US"
+  ],
+  "requiredPermissions": [
+    "user.read"
+  ],
+  "author": {
+    "name": "Your Name or Company",
+    "contact": "contact@yourdomain.com"
   },
-  "authenticationConnections": []
+  "version": "1.0.0"
 }
