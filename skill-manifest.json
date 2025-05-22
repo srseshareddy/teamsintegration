@@ -4,12 +4,15 @@
   "name": "AgentForceBot",
   "msaAppId": "12f8719f-d5d8-49a2-bea3-937927712023",
   "endpoint": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages",
-  "activities": [
-    {
-      "id": "handleMessage",
-      "description": "Handles incoming messages",
+  "activities": {
+    "message": {
+      "description": "Handles messages",
       "type": "message"
+    },
+    "event": {
+      "description": "Handles events",
+      "type": "event"
     }
-  ],
+  },
   "version": "1.0.0"
 }
