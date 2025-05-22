@@ -39,7 +39,7 @@ const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
 });
 
 // ✅ Auth object passed into CloudAdapter
-const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory,authConfig);
+const botAuth = new ConfigurationBotFrameworkAuthentication({}, credentialsFactory);
 const adapter = new CloudAdapter(botAuth);
 
 adapter.onTurnError = async (context, error) => {
