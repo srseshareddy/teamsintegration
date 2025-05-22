@@ -22,7 +22,7 @@ const allowedCallers = [
 ];
 
 // Create a custom claims validator
-const claimsValidator = async (_claims) => {
+/*const claimsValidator = async (_claims) => {
     // Always allow
 };
 
@@ -47,7 +47,7 @@ const adapter = new CloudAdapter(botAuth);
 adapter.onTurnError = async (context, error) => {
     console.error(`[ERROR] ${error}`);
     await context.sendActivity("Oops! Something went wrong.");
-};
+}; */
 
 async function getSalesforceToken() {
     console.log("🔑 Requesting Salesforce token...") ;
