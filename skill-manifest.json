@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.botframework.com/schemas/skills/v2.1/skill-manifest.json",
+  "manifestId": "agent-bot-skill",
+  "name": "Agentforceskill",
+  "description": "AgentforceBot as a skill for Copilot Studio",
+  "publisherName": "AgentforceBot",
+  "version": "1.0",
+  "endpoint": {
+    "protocol": "BotFrameworkV3",
+    "url": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages",
+    "msAppId": "12f8719f-d5d8-49a2-bea3-937927712023"
+  },
+  "activities": {
+    "WelcomeIntent": {
+      "description": "Greets the user",
+      "type": "message"
+    },
+    "HelpIntent": {
+      "description": "Provides help and guidance",
+      "type": "message"
+    }
+  },
+  "authenticationConnections": []
+}

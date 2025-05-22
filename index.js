@@ -1,6 +1,7 @@
 const restify = require('restify');
 const axios = require('axios');
-
+const fs = require('fs');
+const path = require('path');
 
 require('dotenv').config();
 const { CloudAdapter, ConfigurationServiceClientCredentialFactory, ConfigurationBotFrameworkAuthentication } = require('botbuilder');
@@ -184,6 +185,21 @@ server.pre((req, res, next) => {
 server.get('/api/messages', (req, res, next) => {
     res.send(200, "Bot endpoint is reachable ✅");
     return next();
+});
+
+server.get('/manifest/skill-manifest.json', (req, res, next) => {
+    const manifestPath = path.join(__dirname, 'skill-manifest.json');
+    
+    fs.readFile(manifestPath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('❌ Failed to read skill manifest:', err);
+            res.send(500, 'Error loading manifest file.');
+            return next();
+        }
+        res.header('Content-Type', 'application/json');
+        res.sendRaw(200, data);
+        return next();
+    });
 });
 
 
