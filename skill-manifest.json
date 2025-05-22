@@ -1,6 +1,6 @@
 {
   "$schema": "https://schemas.botframework.com/schemas/skills/v2.2/skill-manifest.json",
-  "$id": "agentforcebot-12f8719f-d5d8-49a2-bea3-937927712023",
+  "$id": "agentforcebot-05cb8245-a531-4292-a75e-56e7523880d4",
   "name": "agentforcebot",
   "version": "1.0",
   "publisherName": "YourCompany",
@@ -10,7 +10,7 @@
       "protocol": "BotFrameworkV3",
       "description": "Production endpoint for AgentForceBot",
       "endpointUrl": "https://agentforceapiclient-hvg6bxa4gqhqdvay.centralus-01.azurewebsites.net/api/messages",
-      "msAppId": "12f8719f-d5d8-49a2-bea3-937927712023"
+      "msAppId": "05cb8245-a531-4292-a75e-56e7523880d4"
     }
   ],
   "activities": {
