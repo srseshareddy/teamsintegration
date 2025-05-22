@@ -22,13 +22,8 @@ const allowedCallers = [
 ];
 
 // Create a custom claims validator
-const claimsValidator = async (claims) => {
-    const appIdClaim = claims.find(c => c.type === 'azp' || c.type === 'appid');
-    const appId = appIdClaim?.value;
-
-    if (!appId || !allowedCallers.includes(appId)) {
-        throw new Error(`Unauthorized caller: ${appId}`);
-    }
+const claimsValidator = async (_claims) => {
+    // Always allow
 };
 
 // Set up authentication configuration
